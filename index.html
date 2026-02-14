@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ffe6e6, #ffd6d6);
+  color: #800000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Login Screen */
+#login-screen input {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 0;
+  width: 70%;
+  max-width: 300px;
+}
+
+#login-screen button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#lilo-img {
+  width: 200px;
+  max-width: 80%;
+  margin-bottom: 20px;
+}
+
+/* Main content */
+#main-content {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  max-width: 700px;
+  position: relative;
+}
+
+/* Background watermark */
+#bg-watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('lilo and stitch.png') repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Slides */
+#slide-img, #slide-video {
+  width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  margin-bottom: 20px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+  border-radius: 0;
+}
+
+/* Message box */
+#slide-msg {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  min-height: 80px;
+  max-width: 95%;
+  word-wrap: break-word;
+  background: rgba(255,255,255,0.6);
+  border-radius: 15px;
+  padding: 15px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Buttons */
+#button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  z-index: 1;
+  position: relative;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ff4d4d;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  color: pink;
+  font-size: 24px;
+  animation: float 6s linear infinite;
+  z-index: 1;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-500px); }
+}
+
+h2 {
+  max-width: 95%;
+  margin: 0 auto;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="login-screen">
+  <img src="lilo and stitch.png" id="lilo-img">
+  <h2>
+    This website is only for my Valentine ❤️<br>
+    Are you her? If so, you need the password.<br>
+    Hint: it's the name of your pet!
+  </h2>
+  <input type="password" id="password" placeholder="password">
+  <br>
+  <button id="login-btn">Enter</button>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+  <div id="bg-watermark"></div>
+  <div id="hearts-container"></div>
+  <img id="slide-img" style="display:none;">
+  <video id="slide-video" style="display:none;" controls></video>
+  <p id="slide-msg"></p>
+  <div id="button-container">
+    <button id="back-btn">⬅ Back</button>
+    <button id="next-btn">Next ➡</button>
+  </div>
+  <audio id="bg-music" src="song.mp3" loop></audio>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+const slideImg = document.getElementById("slide-img");
+const slideVideo = document.getElementById("slide-video");
+const slideMsg = document.getElementById("slide-msg");
+const nextBtn = document.getElementById("next-btn");
+const backBtn = document.getElementById("back-btn");
+const buttonContainer = document.getElementById("button-container");
+const music = document.getElementById("bg-music");
+
+music.volume = 0.4;
+
+const slides = [
+  {type:"image", img:"image.png", msg:"Hey Sydney! ❤️ I bet you're wondering what all of this is. You usually only see moments like this in movies, but I can be a little extra, a bit of a dreamer and hopeless romantic… and to be fair, you bring that side out of me. I couldn’t just write a boring love letter like everyone else, so I made this instead. It’s totally me, totally for you, and totally silly… but that’s the point, right? 😉 Also, I have way too much time since I don’t sleep, so I figured why not go all out for someone as special as you? Fair warning, this was made only for you lol — so although there’s nothing crazy in here, show it to others at your own risk. Knowing you, you’ll probably say something like 'omg I can’t believe you used that picture/video 😂,' so sorry in advance!"},
+  {type:"image", img:"image2.png", msg:"The whole point of this website and me coming to see you was to show you how much I appreciate you and what you’ve meant to me this past year. It’s my way of telling you how much I love you. I’m not trying to make this too serious, but I believe we were destined to meet. I truly believe God put you in my life for a reason. Over this past year, you’ve been nothing but a light in my life when I needed it most. When we met, I was going through some dark times, and having you in my corner meant a lot. You checked up on me constantly, even though I was never the type to reach out first. You encouraged me, made me laugh, and made me want to be a better person overall 💖"},
+  {type:"image", img:"beautiful.png", msg:"Honestly, I could go on forever about all the things I love about you. You are smart, beautiful, down-to-earth, and one of the most genuine people I’ve ever met."},
+  {type:"image", img:"IMG_0092.jpg", msg:"Fun fact — did you know that we’ve said 'I love you' to each other 61 times over the past year?"},
+  {type:"image", img:"code.png", msg:"I ran some code to go through our messages to see who said it more. Did you know you’ve said it twice as much as me? That shocked me. If you look closely at the bottom of that picture, you’ll see you said it 41 times compared to my 20. (I honestly don’t think this is accurate, but for argument’s sake I’ll let you have this one.) But I’m making up for it now — I love you, I love you, I love you lol."},
+  {type:"image", img:"IMG_0088.jpg", msg:"One of my favorite things about you is that you’re actually funny. Most people think they are, but they really aren’t. The things you say are pure comedy 😂"},
+  {type:"image", img:"IMG_0237 2.png", msg:"Especially when you add Luna into the mix 😂"},
+  {type:"video", img:"vid1.mp4", msg:"Not to mention that little dance you do lol. You know the one I’m talking about 😂"},
+  {type:"image", img:"IMG_0009.PNG", msg:"I know we’ve had our ups and downs lately and we’re still figuring things out, but I want you to know I’m here for you whenever you need me. Whether you need someone to vent to, a shoulder to cry on, a friend to lift you up, or someone to remind you how beautiful and amazing you are. No matter what happens, I will always love you and want the best for you. I don’t know what the future holds, but I’m hoping we figure it out. In the meantime, I’m going to keep showing up and setting the bar high 😤 because that’s what you deserve."},
+  {type:"image", img:"us.jpg", msg:"With all that being said… would you do me the honor of being my Valentine? 💘", valentine:true},
+  {type:"image", img:"lilo and stitch.png", msg:"Yay! You said yes! 😂 Which is probably a good thing because I actually made it impossible to say no 😉❤️ i cant wait to spesnd the day with you!"}
+];
+
+let currentSlide = 0;
+
+function showSlide(){
+  if(currentSlide < 0) currentSlide = 0;
+  if(currentSlide >= slides.length) currentSlide = slides.length-1;
+
+  const slide = slides[currentSlide];
+
+  // Hide all media first
+  slideImg.style.display="none";
+  slideVideo.style.display="none";
+  slideVideo.pause();
+
+  // Show media
+  if(slide.type==="image"){
+    slideImg.src = slide.img;
+    slideImg.style.display="block";
+  } else if(slide.type==="video"){
+    slideVideo.src = slide.img;
+    slideVideo.style.display="block";
+    slideVideo.play().catch(()=>{});
+  }
+
+  // Show message
+  slideMsg.textContent = slide.msg;
+
+  // Clear extra buttons
+  document.querySelectorAll('#button-container button.extra-btn').forEach(b=>b.remove());
+
+  // Valentine slide
+  if(slide.valentine){
+    backBtn.style.display="none";
+    nextBtn.style.display="none";
+
+    const yesBtn = document.createElement("button");
+    yesBtn.innerText = "Yes ❤️";
+    yesBtn.classList.add("extra-btn");
+    buttonContainer.appendChild(yesBtn);
+
+    const noBtn = document.createElement("button");
+    noBtn.innerText = "No 😢";
+    noBtn.classList.add("extra-btn");
+    buttonContainer.appendChild(noBtn);
+
+    // Position buttons under image
+    yesBtn.style.position = "relative";
+    noBtn.style.position = "relative";
+    yesBtn.style.marginRight = "10px";
+
+    // No button hover move
+    noBtn.addEventListener("mouseenter", () => {
+      const padding = 10; // minimal padding from edges
+      const imgRect = slideImg.getBoundingClientRect();
+      const msgRect = slideMsg.getBoundingClientRect();
+      const containerWidth = window.innerWidth - noBtn.offsetWidth - padding;
+      const containerHeight = window.innerHeight - noBtn.offsetHeight - padding;
+
+      let x, y;
+      do {
+        x = Math.random() * containerWidth;
+        y = Math.random() * containerHeight;
+      } while (
+        x > imgRect.left - noBtn.offsetWidth && x < imgRect.right &&
+        y > imgRect.top - noBtn.offsetHeight && y < msgRect.bottom + noBtn.offsetHeight
+      );
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    yesBtn.onclick = () => {
+      currentSlide++;
+      showSlide();
+    };
+  } else {
+    // Normal navigation buttons
+    backBtn.style.display = "inline-block";
+    nextBtn.style.display = "inline-block";
+  }
+}
+
+// Navigation
+nextBtn.onclick = () => { currentSlide++; showSlide(); };
+backBtn.onclick = () => { currentSlide--; showSlide(); };
+slideImg.onclick = () => { currentSlide++; showSlide(); };
+slideVideo.onclick = () => { currentSlide++; showSlide(); };
+
+// Hearts animation
+function startHearts(){
+  const container = document.getElementById("hearts-container");
+  for(let i=0;i<30;i++){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (4 + Math.random()*4)+"s";
+    heart.style.fontSize = (20 + Math.random()*20)+"px";
+    container.appendChild(heart);
+  }
+}
+
+// Login
+document.getElementById("login-btn").onclick = function(){
+  const pw = document.getElementById("password").value;
+  if(pw === "luna"){
+    document.getElementById("login-screen").style.display="none";
+    document.getElementById("main-content").style.display="flex";
+    music.play().catch(()=>{});
+    startHearts();
+    showSlide();
+  } else {
+    alert("Incorrect password!");
+  }
+};
+
+});
+</script>
+</body>
+</html>
